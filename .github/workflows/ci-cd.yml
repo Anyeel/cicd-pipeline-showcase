@@ -1,0 +1,49 @@
+name: Production Build & Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  quality-check:
+    name: Code Quality (Lint)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+          
+      - name: Run Linter
+        # Falla si el código no sigue los estándares (PEP8)
+        run: flake8 src/ --count --select=E9,F63,F7,F82 --show-source --statistics
+
+  test-suite:
+    name: Unit Testing
+    needs: quality-check # Solo corre si el Lint pasa (Smart Dependency)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: Install Dependencies
+        run: |
+          pip install pytest
+          
+      - name: Run Tests
+        run: pytest src/test_app.py
