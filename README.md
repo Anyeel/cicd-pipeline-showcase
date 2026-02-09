@@ -25,7 +25,7 @@ The pipeline is defined in `.github/workflows/ci-cd.yml` and consists of two seq
 ## 🚀 How to Run Locally
 1. Clone the repository:
    ```bash
-   git clone [https://github.com/YOUR-USERNAME/cicd-pipeline-showcase.git](https://github.com/YOUR-USERNAME/cicd-pipeline-showcase.git)
+   git clone [https://github.com/Anyeel/cicd-pipeline-showcase.git](https://github.com/Anyeel/cicd-pipeline-showcase.git)
 Install dependencies:
 
 ```Bash
